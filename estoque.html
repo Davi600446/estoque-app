@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Estoque</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>Movimentação de Estoque</h2>
+
+<form id="form">
+  <label>Código do produto</label><br>
+  <input type="text" id="codigo" readonly><br><br>
+
+  <label>Tipo</label><br>
+  <select id="tipo">
+    <option>Entrada</option>
+    <option>Saída</option>
+  </select><br><br>
+
+  <label>Quantidade</label><br>
+  <input type="number" id="quantidade" required><br><br>
+
+  <button type="submit">Salvar</button>
+</form>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("codigo").value = params.get("codigo");
+
+  document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    fetch("https://script.google.com/macros/s/AKfycbzhVFBS730GV5C12CMro1EVteT38xHzIGV9OgQq0Lm3UtXSCJFpBBb_vlfZTQJZ3x1-sA/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        codigo: codigo.value,
+        tipo: tipo.value,
+        quantidade: quantidade.value
+      })
+    }).then(() => alert("Movimentação salva com sucesso!"));
+  });
+</script>
+
+</body>
+</html>
